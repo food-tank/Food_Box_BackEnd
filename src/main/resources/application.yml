@@ -22,6 +22,14 @@ spring:
         format_sql: true
         show_sql: true
 
+auth:
+  jwt:
+    header: ${HEADER}
+    secret: ${SECRET}
+    accessExp: ${ACCESS-EXP}
+    refreshExp: ${REFRESH-EXP}
+    prefix: ${PREFIX}
+
 decorator:
   datasource:
     p6spy:
