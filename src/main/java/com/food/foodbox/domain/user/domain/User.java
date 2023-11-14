@@ -1,6 +1,7 @@
 package com.food.foodbox.domain.user.domain;
 
 import com.food.foodbox.domain.user.domain.type.Authority;
+import com.food.foodbox.infrastructure.google.feign.dto.response.GoogleInfoResponse;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -35,5 +36,10 @@ public class User {
         this.introduce = introduce;
         this.imgUrl = imgUrl;
         this.authority = authority;
+    }
+
+    public User update(GoogleInfoResponse response) {
+        this.name = response.name();
+        return this;
     }
 }

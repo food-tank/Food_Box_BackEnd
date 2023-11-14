@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springdoc:springdoc-openapi-ui:1.7.0'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.4'
 	compileOnly 'org.projectlombok:lombok'
 	compileOnly 'io.jsonwebtoken:jjwt-api:0.11.5'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

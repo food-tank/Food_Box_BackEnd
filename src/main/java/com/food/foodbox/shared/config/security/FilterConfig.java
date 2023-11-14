@@ -1,4 +1,4 @@
-package com.food.foodbox.infrastructure.config.security;
+package com.food.foodbox.shared.config.security;
 
 import com.food.foodbox.infrastructure.jwt.auth.JwtAuth;
 import com.food.foodbox.infrastructure.jwt.auth.JwtFilter;

@@ -1,4 +1,4 @@
-package com.food.foodbox.infrastructure.config;
+package com.food.foodbox.shared.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
