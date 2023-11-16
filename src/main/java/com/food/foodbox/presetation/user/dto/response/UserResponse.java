@@ -12,8 +12,7 @@ public record UserResponse(
         String imgUrl
 ) {
     public static UserResponse from(User user) {
-        return UserResponse
-                .builder()
+        return UserResponse.builder()
                 .id(user.getId())
                 .name(user.getName())
                 .email(user.getEmail())

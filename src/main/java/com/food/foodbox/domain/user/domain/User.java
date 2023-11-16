@@ -2,6 +2,7 @@ package com.food.foodbox.domain.user.domain;
 
 import com.food.foodbox.domain.user.domain.type.Authority;
 import com.food.foodbox.infrastructure.google.feign.dto.response.GoogleInfoResponse;
+import com.food.foodbox.presetation.user.dto.request.UpdateUserRequest;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -41,5 +42,11 @@ public class User {
     public User update(GoogleInfoResponse response) {
         this.name = response.name();
         return this;
+    }
+
+    public void update(UpdateUserRequest request) {
+        this.name = request.name();
+        this.introduce = request.introduce();
+        this.imgUrl = request.imgUrl();
     }
 }
