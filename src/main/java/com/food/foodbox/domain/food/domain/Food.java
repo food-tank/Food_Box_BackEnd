@@ -28,6 +28,9 @@ public class Food {
     @Column(nullable = false)
     private String cookingTime;
 
+    @Column(length = 300)
+    private String content;
+
     @Column(nullable = false)
     private Difficulty difficulty;
 
@@ -38,10 +41,11 @@ public class Food {
     private Long writerId;
 
     @Builder
-    public Food(String name, Integer serving, String cookingTime, Difficulty difficulty, Long writerId) {
+    public Food(String name, Integer serving, String cookingTime, String content, Difficulty difficulty, Long writerId) {
         this.name = name;
         this.serving = serving;
         this.cookingTime = cookingTime;
+        this.content = content;
         this.difficulty = difficulty;
         this.createTime = LocalDate.now();
         this.writerId = writerId;
