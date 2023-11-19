@@ -27,9 +27,10 @@ public class Recipe {
     @JoinColumn(name = "food_id")
     private Food food;
 
-    public Recipe(String title, String content, String imgUrl) {
+    public Recipe(String title, String content, String imgUrl, Food food) {
         this.title = title;
         this.content = content;
         this.imgUrl = imgUrl;
+        this.food = food;
     }
 }
