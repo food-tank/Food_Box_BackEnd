@@ -9,8 +9,6 @@ import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
 import com.food.foodbox.shared.aunnotation.CommandService;
 import lombok.RequiredArgsConstructor;
 
-import java.util.stream.Collectors;
-
 @CommandService
 @RequiredArgsConstructor
 public class CreateFoodService {
@@ -21,7 +19,7 @@ public class CreateFoodService {
 
     public void execute(User user, CreateFoodRequest request) {
         Food food = foodRepository.save(request.toEntity(user));
-        materialRepository.saveAll(request.materials().stream().map(r -> r.toEntity(food)).collect(Collectors.toList()));
-        recipeRepository.saveAll(request.recipes().stream().map(r -> r.toEntity(food)).collect(Collectors.toList()));
+        materialRepository.saveAll(request.toMaterialEntities(food));
+        recipeRepository.saveAll(request.toRecipeEntities(food));
     }
 }
