@@ -60,4 +60,12 @@ public class Food {
             throw new FoodBoxException(ErrorCode.IS_NOT_WRITER);
         }
     }
+
+    public void update(CreateFoodRequest request) {
+        this.name = request.name();
+        this.serving = request.serving();
+        this.cookingTime = request.cookingTime();
+        this.content = request.content();
+        this.difficulty = request.difficulty();
+    }
 }
