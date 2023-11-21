@@ -4,9 +4,11 @@ import com.food.foodbox.application.food.command.CreateFoodService;
 import com.food.foodbox.application.food.command.DeleteFoodService;
 import com.food.foodbox.application.food.command.UpdateFoodService;
 import com.food.foodbox.application.food.query.QueryFoodListService;
+import com.food.foodbox.application.food.query.QueryFoodService;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.infrastructure.security.util.SecurityUtil;
 import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
+import com.food.foodbox.presetation.food.dto.response.FoodInfoResponse;
 import com.food.foodbox.presetation.food.dto.response.FoodResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,10 +25,16 @@ public class FoodController {
     private final DeleteFoodService deleteFoodService;
     private final UpdateFoodService updateFoodService;
     private final QueryFoodListService queryFoodListService;
+    private final QueryFoodService queryFoodService;
 
     @GetMapping()
     public ResponseEntity<List<FoodResponse>> getAll() {
         return ResponseEntity.ok(queryFoodListService.execute());
+    }
+
+    @GetMapping("/{food-id}")
+    public ResponseEntity<FoodInfoResponse> getOne(@PathVariable(name = "food-id") Long foodId) {
+        return ResponseEntity.ok(queryFoodService.execute(foodId));
     }
 
     @PostMapping()
