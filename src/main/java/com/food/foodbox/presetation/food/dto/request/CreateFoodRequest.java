@@ -13,6 +13,7 @@ public record CreateFoodRequest(
         Integer serving,
         String cookingTime,
         String content,
+        String imgUrl,
         Difficulty difficulty,
         List<CreateMaterialRequest> materials,
         List<CreateRecipeRequest> recipes
@@ -23,6 +24,7 @@ public record CreateFoodRequest(
                 .serving(serving)
                 .cookingTime(cookingTime)
                 .content(content)
+                .imgUrl(imgUrl)
                 .difficulty(difficulty)
                 .writerId(user.getId())
                 .build();

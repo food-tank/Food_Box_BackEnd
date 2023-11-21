@@ -36,6 +36,9 @@ public class Food {
     private String content;
 
     @Column(nullable = false)
+    private String imgUrl;
+
+    @Column(nullable = false)
     private Difficulty difficulty;
 
     @Column(nullable = false)
@@ -45,11 +48,12 @@ public class Food {
     private Long writerId;
 
     @Builder
-    public Food(String name, Integer serving, String cookingTime, String content, Difficulty difficulty, Long writerId) {
+    public Food(String name, Integer serving, String cookingTime, String content, String imgUrl, Difficulty difficulty, Long writerId) {
         this.name = name;
         this.serving = serving;
         this.cookingTime = cookingTime;
         this.content = content;
+        this.imgUrl = imgUrl;
         this.difficulty = difficulty;
         this.createTime = LocalDate.now();
         this.writerId = writerId;
@@ -66,6 +70,7 @@ public class Food {
         this.serving = request.serving();
         this.cookingTime = request.cookingTime();
         this.content = request.content();
+        this.imgUrl = request.imgUrl();
         this.difficulty = request.difficulty();
     }
 }
