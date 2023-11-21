@@ -13,6 +13,8 @@ public enum ErrorCode {
     INVALID_TOKEN(403, "TOKEN-403-1", "Access with Invalid Token"),
     EXPIRED_JWT(403, "TOKEN-403-2", "Access Token Expired"),
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
+    FOOD_NOT_FOUND(404, "FOOD-404-1", "Food Not Found"),
+    IS_NOT_WRITER(403, "WRITER-403-1", "Is Not Writer"),
     ;
 
     private final int status;
