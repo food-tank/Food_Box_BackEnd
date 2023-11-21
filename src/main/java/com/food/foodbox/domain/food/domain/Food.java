@@ -1,6 +1,10 @@
 package com.food.foodbox.domain.food.domain;
 
 import com.food.foodbox.domain.food.domain.type.Difficulty;
+import com.food.foodbox.domain.user.domain.User;
+import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
+import com.food.foodbox.shared.error.exception.ErrorCode;
+import com.food.foodbox.shared.error.exception.FoodBoxException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,5 +53,11 @@ public class Food {
         this.difficulty = difficulty;
         this.createTime = LocalDate.now();
         this.writerId = writerId;
+    }
+
+    public void validateWriter(User user) {
+        if (!this.writerId.equals(user.getId())) {
+            throw new FoodBoxException(ErrorCode.IS_NOT_WRITER);
+        }
     }
 }
