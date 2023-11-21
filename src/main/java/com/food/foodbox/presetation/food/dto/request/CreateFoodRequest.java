@@ -32,7 +32,7 @@ public record CreateFoodRequest(
 
     public List<Material> toMaterialEntities(Food food) {
         return materials.stream()
-                .map(material -> new Material(material.name(), food))
+                .map(material -> new Material(material.name(), material.purchaseLink(), food))
                 .toList();
     }
 

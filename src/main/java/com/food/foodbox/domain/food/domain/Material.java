@@ -18,12 +18,15 @@ public class Material {
     @Column(length = 50)
     private String name;
 
+    private String purchaseLink;
+
     @ManyToOne
     @JoinColumn(name = "food_id")
     private Food food;
 
-    public Material(String name, Food food) {
+    public Material(String name, String purchaseLink, Food food) {
         this.name = name;
+        this.purchaseLink = purchaseLink;
         this.food = food;
     }
 }
