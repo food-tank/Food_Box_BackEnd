@@ -3,12 +3,16 @@ package com.food.foodbox.presetation.food;
 import com.food.foodbox.application.food.command.CreateFoodService;
 import com.food.foodbox.application.food.command.DeleteFoodService;
 import com.food.foodbox.application.food.command.UpdateFoodService;
+import com.food.foodbox.application.food.query.QueryFoodListService;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.infrastructure.security.util.SecurityUtil;
 import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
+import com.food.foodbox.presetation.food.dto.response.FoodResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +22,12 @@ public class FoodController {
     private final CreateFoodService createFoodService;
     private final DeleteFoodService deleteFoodService;
     private final UpdateFoodService updateFoodService;
+    private final QueryFoodListService queryFoodListService;
+
+    @GetMapping()
+    public ResponseEntity<List<FoodResponse>> getAll() {
+        return ResponseEntity.ok(queryFoodListService.execute());
+    }
 
     @PostMapping()
     public ResponseEntity<Void> create(@RequestBody CreateFoodRequest request) {
