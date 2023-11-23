@@ -1,4 +1,4 @@
-package com.food.foodbox.presetation;
+package com.food.foodbox.presetation.food;
 
 import com.food.foodbox.application.food.query.QueryRecipeListService;
 import com.food.foodbox.presetation.food.dto.response.RecipeResponse;

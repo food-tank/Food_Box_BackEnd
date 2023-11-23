@@ -19,6 +19,7 @@ public record FoodResponse (
     public static FoodResponse of(Food food, User user) {
         return FoodResponse.builder()
                 .foodId(food.getId())
+                .foodName(food.getName())
                 .imgUrl(food.getImgUrl())
                 .createTime(food.getCreateTime())
                 .writer(UserSimpleResponse.from(user))

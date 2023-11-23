@@ -5,7 +5,10 @@ import com.food.foodbox.shared.error.exception.ErrorCode;
 import com.food.foodbox.shared.error.exception.FoodBoxException;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface FoodRepository extends JpaRepository<Food, Long> {
+    List<Food> findByNameContainsOrContentContains(String name, String content);
 
     default Food getById(Long id) {
         return findById(id)
