@@ -2,6 +2,7 @@ package com.food.foodbox.presetation.food.dto.response;
 
 import com.food.foodbox.domain.food.domain.Food;
 import com.food.foodbox.domain.food.domain.type.Difficulty;
+import com.food.foodbox.domain.food.domain.type.Type;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.presetation.user.dto.UserSimpleResponse;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public record FoodInfoResponse(
         String content,
         String imgUrl,
         Difficulty difficulty,
+        Type type,
         LocalDate createTime,
         UserSimpleResponse writer
 ) {
@@ -30,6 +32,7 @@ public record FoodInfoResponse(
                 .cookingTime(food.getContent())
                 .imgUrl(food.getImgUrl())
                 .difficulty(food.getDifficulty())
+                .type(food.getType())
                 .createTime(food.getCreateTime())
                 .writer(UserSimpleResponse.from(user))
                 .build();
