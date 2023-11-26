@@ -1,6 +1,7 @@
 package com.food.foodbox.domain.food.domain;
 
 import com.food.foodbox.domain.food.domain.type.Difficulty;
+import com.food.foodbox.domain.food.domain.type.Type;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
 import com.food.foodbox.shared.error.exception.ErrorCode;
@@ -39,7 +40,12 @@ public class Food {
     private String imgUrl;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
     @Column(nullable = false)
     private LocalDate createTime;
@@ -48,13 +54,14 @@ public class Food {
     private Long writerId;
 
     @Builder
-    public Food(String name, Integer serving, String cookingTime, String content, String imgUrl, Difficulty difficulty, Long writerId) {
+    public Food(String name, Integer serving, String cookingTime, String content, String imgUrl, Difficulty difficulty, Type type, Long writerId) {
         this.name = name;
         this.serving = serving;
         this.cookingTime = cookingTime;
         this.content = content;
         this.imgUrl = imgUrl;
         this.difficulty = difficulty;
+        this.type = type;
         this.createTime = LocalDate.now();
         this.writerId = writerId;
     }
@@ -72,5 +79,6 @@ public class Food {
         this.content = request.content();
         this.imgUrl = request.imgUrl();
         this.difficulty = request.difficulty();
+        this.type = request.type();
     }
 }
