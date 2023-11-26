@@ -3,8 +3,8 @@ package com.food.foodbox.presetation.food;
 import com.food.foodbox.application.food.command.CreateFoodService;
 import com.food.foodbox.application.food.command.DeleteFoodService;
 import com.food.foodbox.application.food.command.UpdateFoodService;
-import com.food.foodbox.application.food.query.QueryFoodListService;
 import com.food.foodbox.application.food.query.QueryFoodService;
+import com.food.foodbox.application.food.query.QueryRecentFoodListService;
 import com.food.foodbox.application.food.query.QuerySearchFoodService;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.infrastructure.security.util.SecurityUtil;
@@ -25,13 +25,16 @@ public class FoodController {
     private final CreateFoodService createFoodService;
     private final DeleteFoodService deleteFoodService;
     private final UpdateFoodService updateFoodService;
-    private final QueryFoodListService queryFoodListService;
+    private final QueryRecentFoodListService queryRecentFoodListService;
     private final QueryFoodService queryFoodService;
     private final QuerySearchFoodService querySearchFoodService;
 
     @GetMapping()
-    public ResponseEntity<List<FoodResponse>> getAll() {
-        return ResponseEntity.ok(queryFoodListService.execute());
+    public ResponseEntity<List<FoodResponse>> getAll(
+            @RequestParam(name = "criteria", required = false, defaultValue = "recent") String criteria,
+            @RequestParam(name = "type", required = false, defaultValue = "DIET") String type
+    ) {
+        return ResponseEntity.ok(queryRecentFoodListService.execute(type));
     }
 
     @GetMapping("/{food-id}")
