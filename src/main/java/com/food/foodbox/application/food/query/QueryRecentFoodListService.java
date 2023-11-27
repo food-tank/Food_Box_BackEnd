@@ -18,7 +18,6 @@ public class QueryRecentFoodListService {
     private final FoodRepository foodRepository;
 
     public List<FoodResponse> execute(String type) {
-        System.out.println(Type.valueOf(type));
         List<Food> foods = foodRepository.findByTypeOrderByIdDesc(Type.valueOf(type));
         return foods.stream()
                 .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId())))

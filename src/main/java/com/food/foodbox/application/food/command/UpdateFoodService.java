@@ -20,6 +20,8 @@ public class UpdateFoodService {
     public void execute(User user, Long foodId, CreateFoodRequest request) {
         Food food = foodRepository.getById(foodId);
 
+        food.validateWriter(user);
+
         food.update(request);
         updateOthers(food, request);
     }
