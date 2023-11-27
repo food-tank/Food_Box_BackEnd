@@ -17,6 +17,7 @@ public record FoodInfoResponse(
         String cookingTime,
         String content,
         String imgUrl,
+        Integer likeCount,
         Difficulty difficulty,
         Type type,
         LocalDate createTime,
@@ -31,6 +32,7 @@ public record FoodInfoResponse(
                 .cookingTime(food.getCookingTime())
                 .cookingTime(food.getContent())
                 .imgUrl(food.getImgUrl())
+                .likeCount(food.getLikeCount())
                 .difficulty(food.getDifficulty())
                 .type(food.getType())
                 .createTime(food.getCreateTime())

@@ -15,10 +15,12 @@ public record FoodResponse (
         String imgUrl,
         Type type,
         LocalDate createTime,
-        UserSimpleResponse writer
+        UserSimpleResponse writer,
+        Integer likeCount,
+        Boolean isLiked
 ) {
 
-    public static FoodResponse of(Food food, User user) {
+    public static FoodResponse of(Food food, User user, Boolean isLiked) {
         return FoodResponse.builder()
                 .foodId(food.getId())
                 .foodName(food.getName())
@@ -26,6 +28,8 @@ public record FoodResponse (
                 .type(food.getType())
                 .createTime(food.getCreateTime())
                 .writer(UserSimpleResponse.from(user))
+                .likeCount(food.getLikeCount())
+                .isLiked(isLiked)
                 .build();
     }
 }

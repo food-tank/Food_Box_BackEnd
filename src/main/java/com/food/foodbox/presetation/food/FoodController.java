@@ -34,7 +34,8 @@ public class FoodController {
             @RequestParam(name = "criteria", required = false, defaultValue = "recent") String criteria,
             @RequestParam(name = "type", required = false, defaultValue = "DIET") String type
     ) {
-        return ResponseEntity.ok(queryRecentFoodListService.execute(type));
+        User user = SecurityUtil.getCurrentUserOrNotLogin();
+        return ResponseEntity.ok(queryRecentFoodListService.execute(user, type));
     }
 
     @GetMapping("/{food-id}")
@@ -44,7 +45,8 @@ public class FoodController {
 
     @GetMapping("/search")
     public ResponseEntity<List<FoodResponse>> search(@RequestParam(name = "q") String q) {
-        return ResponseEntity.ok(querySearchFoodService.execute(q));
+        User user = SecurityUtil.getCurrentUserOrNotLogin();
+        return ResponseEntity.ok(querySearchFoodService.execute(user, q));
     }
 
     @PostMapping()
