@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> findByTypeOrderByIdDesc(Type type);
+    List<Food> findByTypeOrderByLikeCountDesc(Type type);
     List<Food> findByNameContainsOrContentContains(String name, String content);
 
     @Query("select f " +

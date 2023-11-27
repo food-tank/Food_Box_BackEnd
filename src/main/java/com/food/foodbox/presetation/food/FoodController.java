@@ -3,10 +3,7 @@ package com.food.foodbox.presetation.food;
 import com.food.foodbox.application.food.command.CreateFoodService;
 import com.food.foodbox.application.food.command.DeleteFoodService;
 import com.food.foodbox.application.food.command.UpdateFoodService;
-import com.food.foodbox.application.food.query.QueryFoodService;
-import com.food.foodbox.application.food.query.QueryLikeFoodService;
-import com.food.foodbox.application.food.query.QueryRecentFoodListService;
-import com.food.foodbox.application.food.query.QuerySearchFoodService;
+import com.food.foodbox.application.food.query.*;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.infrastructure.security.util.SecurityUtil;
 import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
@@ -30,6 +27,7 @@ public class FoodController {
     private final QueryFoodService queryFoodService;
     private final QuerySearchFoodService querySearchFoodService;
     private final QueryLikeFoodService queryLikeFoodService;
+    private final QueryLikeCountFoodListService queryLikeCountFoodListService;
 
     @GetMapping()
     public ResponseEntity<List<FoodResponse>> getAll(
@@ -37,6 +35,10 @@ public class FoodController {
             @RequestParam(name = "type", required = false, defaultValue = "DIET") String type
     ) {
         User user = SecurityUtil.getCurrentUserOrNotLogin();
+        if (criteria.equals("like")) {
+            return ResponseEntity.ok(queryLikeCountFoodListService.execute(user, type));
+        }
+
         return ResponseEntity.ok(queryRecentFoodListService.execute(user, type));
     }
 
