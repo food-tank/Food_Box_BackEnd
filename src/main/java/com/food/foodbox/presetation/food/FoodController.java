@@ -4,6 +4,7 @@ import com.food.foodbox.application.food.command.CreateFoodService;
 import com.food.foodbox.application.food.command.DeleteFoodService;
 import com.food.foodbox.application.food.command.UpdateFoodService;
 import com.food.foodbox.application.food.query.QueryFoodService;
+import com.food.foodbox.application.food.query.QueryLikeFoodService;
 import com.food.foodbox.application.food.query.QueryRecentFoodListService;
 import com.food.foodbox.application.food.query.QuerySearchFoodService;
 import com.food.foodbox.domain.user.domain.User;
@@ -28,6 +29,7 @@ public class FoodController {
     private final QueryRecentFoodListService queryRecentFoodListService;
     private final QueryFoodService queryFoodService;
     private final QuerySearchFoodService querySearchFoodService;
+    private final QueryLikeFoodService queryLikeFoodService;
 
     @GetMapping()
     public ResponseEntity<List<FoodResponse>> getAll(
@@ -47,6 +49,12 @@ public class FoodController {
     public ResponseEntity<List<FoodResponse>> search(@RequestParam(name = "q") String q) {
         User user = SecurityUtil.getCurrentUserOrNotLogin();
         return ResponseEntity.ok(querySearchFoodService.execute(user, q));
+    }
+
+    @GetMapping("/liked")
+    public ResponseEntity<List<FoodResponse>> getLiked() {
+        User user = SecurityUtil.getCurrentUserWithLogin();
+        return ResponseEntity.ok(queryLikeFoodService.execute(user));
     }
 
     @PostMapping()
