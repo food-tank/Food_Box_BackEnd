@@ -1,6 +1,7 @@
 package com.food.foodbox.application.food.query;
 
 import com.food.foodbox.domain.food.domain.Food;
+import com.food.foodbox.domain.food.domain.type.Type;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.infrastructure.persistence.food.FoodRepository;
 import com.food.foodbox.infrastructure.persistence.like.LikeRepository;
@@ -13,14 +14,14 @@ import java.util.List;
 
 @QueryService
 @RequiredArgsConstructor
-public class QuerySearchFoodService {
+public class QueryLikeCountFoodListService {
 
     private final FoodRepository foodRepository;
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
 
-    public List<FoodResponse> execute(User user, String q) {
-        List<Food> foods = foodRepository.findByNameContainsOrContentContains(q, q);
+    public List<FoodResponse> execute(User user, String type) {
+        List<Food> foods = foodRepository.findByTypeOrderByLikeCountDesc(Type.valueOf(type));
         return foods.stream()
                 .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId()), isLiked(user, food)))
                 .toList();

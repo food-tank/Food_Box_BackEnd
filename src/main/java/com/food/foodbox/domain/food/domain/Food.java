@@ -40,6 +40,9 @@ public class Food {
     private String imgUrl;
 
     @Column(nullable = false)
+    private Integer likeCount;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Difficulty difficulty;
 
@@ -60,6 +63,7 @@ public class Food {
         this.cookingTime = cookingTime;
         this.content = content;
         this.imgUrl = imgUrl;
+        this.likeCount = 0;
         this.difficulty = difficulty;
         this.type = type;
         this.createTime = LocalDate.now();
@@ -80,5 +84,13 @@ public class Food {
         this.imgUrl = request.imgUrl();
         this.difficulty = request.difficulty();
         this.type = request.type();
+    }
+
+    public void increaseLikeCount() {
+        this.likeCount++;
+    }
+
+    public void decreaseLikeCount() {
+        this.likeCount--;
     }
 }
