@@ -28,6 +28,7 @@ public class FoodController {
     private final QuerySearchFoodService querySearchFoodService;
     private final QueryLikeFoodService queryLikeFoodService;
     private final QueryLikeCountFoodListService queryLikeCountFoodListService;
+    private final QueryMyFoodListService queryMyFoodListService;
 
     @GetMapping()
     public ResponseEntity<List<FoodResponse>> getAll(
@@ -57,6 +58,12 @@ public class FoodController {
     public ResponseEntity<List<FoodResponse>> getLiked() {
         User user = SecurityUtil.getCurrentUserWithLogin();
         return ResponseEntity.ok(queryLikeFoodService.execute(user));
+    }
+
+    @GetMapping("/my")
+    public ResponseEntity<List<FoodResponse>> getMy() {
+        User user = SecurityUtil.getCurrentUserWithLogin();
+        return ResponseEntity.ok(queryMyFoodListService.execute(user));
     }
 
     @PostMapping()

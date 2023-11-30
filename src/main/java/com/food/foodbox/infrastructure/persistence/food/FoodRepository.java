@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
+    List<Food> findByWriterId(Long writerId);
     List<Food> findByTypeOrderByIdDesc(Type type);
     List<Food> findByTypeOrderByLikeCountDesc(Type type);
     List<Food> findByNameContainsOrContentContains(String name, String content);
