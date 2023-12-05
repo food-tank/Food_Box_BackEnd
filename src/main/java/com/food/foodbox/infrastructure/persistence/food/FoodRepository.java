@@ -5,14 +5,17 @@ import com.food.foodbox.domain.food.domain.type.Type;
 import com.food.foodbox.domain.user.domain.User;
 import com.food.foodbox.shared.error.exception.ErrorCode;
 import com.food.foodbox.shared.error.exception.FoodBoxException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
-    List<Food> findByTypeOrderByIdDesc(Type type);
-    List<Food> findByTypeOrderByLikeCountDesc(Type type);
+    List<Food> findByWriterId(Long writerId);
+    Page<Food> findByTypeOrderByIdDesc(Type type, Pageable pageable);
+    Page<Food> findByTypeOrderByLikeCountDesc(Type type, Pageable pageable);
     List<Food> findByNameContainsOrContentContains(String name, String content);
 
     @Query("select f " +

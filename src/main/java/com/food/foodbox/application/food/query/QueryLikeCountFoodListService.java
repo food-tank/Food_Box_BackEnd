@@ -7,8 +7,11 @@ import com.food.foodbox.infrastructure.persistence.food.FoodRepository;
 import com.food.foodbox.infrastructure.persistence.like.LikeRepository;
 import com.food.foodbox.infrastructure.persistence.user.UserRepository;
 import com.food.foodbox.presetation.food.dto.response.FoodResponse;
+import com.food.foodbox.presetation.food.dto.response.FoodsResponse;
 import com.food.foodbox.shared.aunnotation.QueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -20,11 +23,15 @@ public class QueryLikeCountFoodListService {
     private final UserRepository userRepository;
     private final LikeRepository likeRepository;
 
-    public List<FoodResponse> execute(User user, String type) {
-        List<Food> foods = foodRepository.findByTypeOrderByLikeCountDesc(Type.valueOf(type));
-        return foods.stream()
-                .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId()), isLiked(user, food)))
-                .toList();
+    public FoodsResponse execute(User user, String type, Pageable pageable) {
+        Page<Food> foods = foodRepository.findByTypeOrderByLikeCountDesc(Type.valueOf(type), pageable);
+        return FoodsResponse.of(
+                pageable.getPageSize(),
+                pageable.getPageNumber(),
+                foods.stream()
+                        .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId()), isLiked(user, food)))
+                        .toList()
+        );
     }
 
     private Boolean isLiked(User user, Food food) {
