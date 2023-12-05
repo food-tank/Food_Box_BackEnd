@@ -9,7 +9,10 @@ import com.food.foodbox.infrastructure.security.util.SecurityUtil;
 import com.food.foodbox.presetation.food.dto.request.CreateFoodRequest;
 import com.food.foodbox.presetation.food.dto.response.FoodInfoResponse;
 import com.food.foodbox.presetation.food.dto.response.FoodResponse;
+import com.food.foodbox.presetation.food.dto.response.FoodsResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,16 +34,19 @@ public class FoodController {
     private final QueryMyFoodListService queryMyFoodListService;
 
     @GetMapping()
-    public ResponseEntity<List<FoodResponse>> getAll(
+    public ResponseEntity<FoodsResponse> getAll(
             @RequestParam(name = "criteria", required = false, defaultValue = "recent") String criteria,
-            @RequestParam(name = "type", required = false, defaultValue = "DIET") String type
+            @RequestParam(name = "type", required = false, defaultValue = "DIET") String type,
+            @RequestParam int size,
+            @RequestParam int page
     ) {
         User user = SecurityUtil.getCurrentUserOrNotLogin();
+        Pageable pageable = PageRequest.of(page, size);
         if (criteria.equals("like")) {
-            return ResponseEntity.ok(queryLikeCountFoodListService.execute(user, type));
+            return ResponseEntity.ok(queryLikeCountFoodListService.execute(user, type, pageable));
         }
 
-        return ResponseEntity.ok(queryRecentFoodListService.execute(user, type));
+        return ResponseEntity.ok(queryRecentFoodListService.execute(user, type, pageable));
     }
 
     @GetMapping("/{food-id}")
