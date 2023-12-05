@@ -15,6 +15,7 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "SERVER-500-1", "Internal Server Error"),
     FOOD_NOT_FOUND(404, "FOOD-404-1", "Food Not Found"),
     IS_NOT_WRITER(403, "WRITER-403-1", "Is Not Writer"),
+    IMAGE_FAILED_SAVE(424, "IMAGE-424-1", "Image Failed Save"),
     ;
 
     private final int status;
