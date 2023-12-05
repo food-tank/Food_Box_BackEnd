@@ -39,6 +39,7 @@ public class FoodController {
     private final QueryMyFoodListService queryMyFoodListService;
 
     @GetMapping()
+    @Operation(summary = "식단 전체 조회")
     public ResponseEntity<FoodsResponse> getAll(
             @RequestParam(name = "criteria", required = false, defaultValue = "recent") String criteria,
             @RequestParam(name = "type", required = false, defaultValue = "DIET") String type,
@@ -55,29 +56,34 @@ public class FoodController {
     }
 
     @GetMapping("/{food-id}")
+    @Operation(summary = "식단 상세 조회")
     public ResponseEntity<FoodInfoResponse> getOne(@PathVariable(name = "food-id") Long foodId) {
         return ResponseEntity.ok(queryFoodService.execute(foodId));
     }
 
     @GetMapping("/search")
+    @Operation(summary = "식단 검색")
     public ResponseEntity<List<FoodResponse>> search(@RequestParam(name = "q") String q) {
         User user = SecurityUtil.getCurrentUserOrNotLogin();
         return ResponseEntity.ok(querySearchFoodService.execute(user, q));
     }
 
     @GetMapping("/liked")
+    @Operation(summary = "좋아요한 식단 조회")
     public ResponseEntity<List<FoodResponse>> getLiked() {
         User user = SecurityUtil.getCurrentUserWithLogin();
         return ResponseEntity.ok(queryLikeFoodService.execute(user));
     }
 
     @GetMapping("/my")
+    @Operation(summary = "내가 만든 식단 조회")
     public ResponseEntity<List<FoodResponse>> getMy() {
         User user = SecurityUtil.getCurrentUserWithLogin();
         return ResponseEntity.ok(queryMyFoodListService.execute(user));
     }
 
     @PostMapping()
+    @Operation(summary = "식단 생성")
     public ResponseEntity<Void> create(@RequestBody CreateFoodRequest request) {
         User user = SecurityUtil.getCurrentUserWithLogin();
         createFoodService.execute(user, request);
@@ -85,11 +91,13 @@ public class FoodController {
     }
 
     @PostMapping("/image")
-    public ImageResponse uploadImage(@RequestPart("image") MultipartFile image) {
-        return uploadImageService.execute(image);
+    @Operation(summary = "이미지 등록")
+    public ResponseEntity<ImageResponse> uploadImage(@RequestPart("image") MultipartFile image) {
+        return ResponseEntity.ok(uploadImageService.execute(image));
     }
 
     @DeleteMapping("/{food-id}")
+    @Operation(summary = "식단 삭제")
     public ResponseEntity<Void> delete(@PathVariable(name = "food-id") Long foodId) {
         User user = SecurityUtil.getCurrentUserWithLogin();
         deleteFoodService.execute(user, foodId);
@@ -97,6 +105,7 @@ public class FoodController {
     }
 
     @PutMapping("/{food-id}")
+    @Operation(summary = "식단 수정")
     public ResponseEntity<Void> update(@PathVariable(name = "food-id") Long foodId, @RequestBody CreateFoodRequest request) {
         User user = SecurityUtil.getCurrentUserWithLogin();
         updateFoodService.execute(user, foodId, request);
