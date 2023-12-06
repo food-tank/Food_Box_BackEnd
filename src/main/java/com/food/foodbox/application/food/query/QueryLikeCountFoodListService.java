@@ -24,9 +24,9 @@ public class QueryLikeCountFoodListService {
     private final LikeRepository likeRepository;
 
     public FoodsResponse execute(User user, String type, Pageable pageable) {
-        Page<Food> foods = foodRepository.findByTypeOrderByLikeCountDesc(Type.valueOf(type), pageable);
+        Page<Food> foods = foodRepository.findByTypeOrderByLikeCountDescIdDesc(Type.valueOf(type), pageable);
         return FoodsResponse.of(
-                pageable.getPageSize(),
+                foods.getTotalPages(),
                 pageable.getPageNumber(),
                 foods.stream()
                         .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId()), isLiked(user, food)))

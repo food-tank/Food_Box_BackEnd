@@ -15,7 +15,7 @@ import java.util.List;
 public interface FoodRepository extends JpaRepository<Food, Long> {
     List<Food> findByWriterId(Long writerId);
     Page<Food> findByTypeOrderByIdDesc(Type type, Pageable pageable);
-    Page<Food> findByTypeOrderByLikeCountDesc(Type type, Pageable pageable);
+    Page<Food> findByTypeOrderByLikeCountDescIdDesc(Type type, Pageable pageable);
     List<Food> findByNameContainsOrContentContains(String name, String content);
 
     @Query("select f " +

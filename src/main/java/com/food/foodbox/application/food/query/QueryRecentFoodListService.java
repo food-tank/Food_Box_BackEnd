@@ -26,7 +26,7 @@ public class QueryRecentFoodListService {
     public FoodsResponse execute(User user, String type, Pageable pageable) {
         Page<Food> foods = foodRepository.findByTypeOrderByIdDesc(Type.valueOf(type), pageable);
         return FoodsResponse.of(
-                pageable.getPageSize(),
+                foods.getTotalPages(),
                 pageable.getPageNumber(),
                 foods.stream()
                     .map(food -> FoodResponse.of(food, userRepository.getById(food.getWriterId()), isLiked(user, food)))
