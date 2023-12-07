@@ -41,7 +41,7 @@ auth:
   jwt:
     header: ${HEADER}
     secret: ${SECRET}
-    accessExp: 1800
+    accessExp: 2592000
     refreshExp: 2592000
     prefix: ${PREFIX}
 
